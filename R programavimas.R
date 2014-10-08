@@ -207,4 +207,49 @@ A
 
 f(B)
 
+##########################
 
+#5.) 
+
+f1=function ( n , k ) { 
+  A=matrix (
+    nrow = n,
+    ncol = n )
+  
+  diag(A)=k
+  
+  A[!is.finite(A)] <- 0
+  
+  
+  for ( i in 1:(n%/%2)){
+    for( j in 1:(n%/%2)){
+      if( A[i,j] == 2 ) 
+        {
+        
+        A[i,j+1]=1 
+        A[i+1,j]=1   
+        }
+      
+      else A[i,j] = A[i,j]
+      }
+    }
+  
+  for ( i in (n%/%2):n){
+    for( j in (n%/%2):n){
+      if( A[i,j] == 2 ) 
+      {
+        
+        A[i,j-1]=1 
+        A[i-1,j]=1   
+      }
+      
+      else A[i,j] = A[i,j]
+    }
+  }
+  
+  A
+}
+
+f1(10,2)
+
+############################
