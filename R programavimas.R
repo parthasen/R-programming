@@ -1,4 +1,8 @@
 ##
+## Exercises are from file "rexercises.pdf" 
+##
+
+##
 #WARM UP
 ##
 
@@ -180,5 +184,27 @@ plot(tmpFn(a),type="l")
 
 #4.)
 
+B = matrix( c(2, 4, 3, 1, 5, 7,-1,-2,-3,-1,-2,-5), 
+     nrow=3, 
+     ncol=4) 
+
+f=function(A){
+  nrows=length(A[,1])
+  ncols=length(A[1,])
+  
+  for ( i in 1:nrows){
+    for( j in 1:ncols){
+      if(A[i,j]%%2 != 0 ) A[i,j] = A[i,j]*2 
+      else A[i,j] = A[i,j]
+      
+      
+    }
+    
+}
+
+A
+}
+
+f(B)
 
 
