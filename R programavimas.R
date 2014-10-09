@@ -106,6 +106,12 @@ x=1:5
 tmpFn1(x)
 tmpFn2(x)
 
+##Vectorize!
+tmpFn1 <- function(x)x^(1:length(x))
+tmpFn2 <- function(x) {
+  i<-1:length(x)
+  x^i/i
+}
 #b.)
 
 tmpFn3 = function (x,n){
