@@ -324,6 +324,49 @@ weekday = function(day,month,year) {
 
 weekday(09,10,2014)
 
+##############################
+#8.)
+#a.)
+
+testloop=function (n){
+    
+  a=numeric()
+  
+  for( i in 2:(n)) 
+    { 
+     
+    a[i]=i-1 + 2/(i-1)
+     
+    }
+  a=a[!is.na(a)]
+  a
+}
+
+testloop(10)
+
+#b.)
+
+testloop2 = function ( y ) {
+  n=length(y)
+  a=numeric()
+  
+  for( i in 1:n ) 
+    {
+    
+    a[i]=exp(i)
+    
+    }
+   
+    a1=cumsum(a)
+  
+    a1[n]
+}
+
+
+testloop2(c(1:5))
+
+##############################
+#9.)
 
 
 
