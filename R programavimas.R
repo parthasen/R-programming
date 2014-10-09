@@ -70,18 +70,18 @@ plot(anwr,type="l",lwd=3)
 
 #1.a) 
 tmpFn1 = function (x) {
-
+  
   n=length(x)
   a=numeric(n)
   
   for ( i in 1:n ) 
-    {
+  {
     
     a[i]=x[i]^i  
     
-    }
+  }
   a
-
+  
 }
 
 
@@ -95,31 +95,37 @@ tmpFn2 = function (x){
     
     a[i]=(x[i]^i)/i  
     
-  
+    
   }
   
   a
-
+  
 }
 
 x=1:5
 tmpFn1(x)
 tmpFn2(x)
 
+##Vectorize!
+tmpFn1 <- function(x)x^(1:length(x))
+tmpFn2 <- function(x) {
+  i<-1:length(x)
+  x^i/i
+}
 #b.)
 
 tmpFn3 = function (x,n){
   
-    a=numeric()
-    
+  a=numeric()
+  
   for( i in 1: n ) 
-    {
+  {
     
     a[i]= (x^i)/i
     
-    }
+  }
   
-    b=0
+  b=0
   
   for(i in 1:n)
   {
@@ -145,11 +151,11 @@ avg=function(x){
   a=numeric()
   
   for ( i  in 1:n) 
-    {
+  {
     
     a[i]=(x[i]+x[i+1]+x[i+2])/3  
     
-    }
+  }
   
   a=a[!is.na(a)]
   a
@@ -166,13 +172,13 @@ tmpFn = function (x) {
   
   for( i in 1:n )
   {
-  
+    
     if ( x[i] < 0 ) {a[i]=x[i]^2 + 2*x[i] +3 }
     else if ( (0 <= x[i]) &&(x[i]<2)) a[i]=x[i]+3
     else a[i]=x[i]^2 +4*x[i] -7
-  
+    
   }
-a
+  a
 }
 
 a=-3:3
@@ -185,8 +191,8 @@ plot(tmpFn(a),type="l")
 #4.)
 
 B = matrix( c(2, 4, 3, 1, 5, 7,-1,-2,-3,-1,-2,-5), 
-     nrow=3, 
-     ncol=4) 
+            nrow=3, 
+            ncol=4) 
 
 f=function(A){
   nrows=length(A[,1])
@@ -200,9 +206,9 @@ f=function(A){
       
     }
     
-}
-
-A
+  }
+  
+  A
 }
 
 f(B)
@@ -224,15 +230,15 @@ f1=function ( n , k ) {
   for ( i in 1:(n%/%2)){
     for( j in 1:(n%/%2)){
       if( A[i,j] == 2 ) 
-        {
+      {
         
         A[i,j+1]=1 
         A[i+1,j]=1   
-        }
+      }
       
       else A[i,j] = A[i,j]
-      }
     }
+  }
   
   for ( i in (n%/%2):n){
     for( j in (n%/%2):n){
@@ -253,3 +259,71 @@ f1=function ( n , k ) {
 f1(10,2)
 
 ############################
+
+#6) Reduction 
+
+quadrant = function ( x ) 
+{
+  a = x%%360 
+  
+  if((a>=0)&&(a<90)) cat( ' Kampas',x,'yra 1 ketvirtyje ' )  
+     else if ((a>=90)&&(a<180)) cat( ' Kampas',x,'yra 2 ketvirtyje ' )  
+        else if((a>=180)&&(a<270)) cat( ' Kampas',x,'yra 3 ketvirtyje ' )  
+           else cat( ' Kampas',x,'yra 4 ketvirtyje ' )  
+}
+  
+  
+quadrant(1760)
+
+############################
+
+#7)
+integ = function (x){    ### additional function that gives the integer part of the number 
+  
+  x1=as.character(x)
+  n = nchar(x1)
+  y=strsplit(x1,'')
+  y1=y[[1]]
+  
+  for ( i in 1:n ){
+    if((y1[i]==".") || (y1[i]==",")) { a = substr(x1,start=1,stop=(i-1))}
+    else y1[i]=y1[i]
+    
+  }
+  a1=as.numeric(a)
+  
+   a1
+}
+
+weekday = function(day,month,year) { 
+  
+  if       (month==2) {m=12
+                       year= year - 1}
+  
+  else if  (month==1) {m=11
+                       year= year -1}
+  
+  else                m= month - 2  
+  
+  
+  
+  year1=as.character(year) 
+  c=as.numeric(substr(year1,start=1,stop=2))
+  y=as.numeric(substr(year1,start=3,stop=4))
+
+
+ 
+  
+  index = (integ(2.6*m - 0.2) + day + y +integ(y/4) + integ(c/4) -2*c)%% 7 
+  
+  weekdays = c("sunday", "monday","tuesday","Wednesday","thursday","friday","saturday")
+  cat (" On ", day,"/",month,"/",year, " the weekday is" , weekdays[index])
+  
+}
+
+
+weekday(09,10,2014)
+
+
+
+
