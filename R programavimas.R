@@ -286,8 +286,10 @@ integ = function (x){    ### additional function that gives the integer part of 
   y1=y[[1]]
   
   for ( i in 1:n ){
-    if((y1[i]==".") || (y1[i]==",")) { a = substr(x1,start=1,stop=(i-1))}
-    else y1[i]=y1[i]
+    if((y1[i]==".") || (y1[i]==",")) { 
+    a = substr(x1,start=1,stop=(i-1))
+    break}
+    else a=x1
     
   }
   a1=as.numeric(a)
@@ -314,15 +316,16 @@ weekday = function(day,month,year) {
 
  
   
-  index = (integ(2.6*m - 0.2) + day + y +integ(y/4) + integ(c/4) -2*c)%% 7 
+  index = (integ(2.6*m - 0.2) + day + y +integ(y/4) + integ(c/4) -2*c)%%7 
   
-  weekdays = c("sunday", "monday","tuesday","Wednesday","thursday","friday","saturday")
+
+  weekdays = c( "monday","tuesday","Wednesday","thursday","friday","saturday","sunday")
   cat (" On ", day,"/",month,"/",year, " the weekday is" , weekdays[index])
   
 }
 
 
-weekday(09,10,2014)
+weekday(10,10,2014)
 
 ##############################
 #8.)
@@ -366,7 +369,37 @@ testloop2 = function ( y ) {
 testloop2(c(1:5))
 
 ##############################
-#9.)
+#9.)a
+quadmap=function(start,rho,niter){
+  
+  a=numeric(niter)
+  a[1]=start
+  
+  
+  for ( i in 2: niter ){
+    
+    a[i]=rho*a[i-1]*(1 - a[i-1])
+    
+  } 
+  
+  a
+  
+}
+quadmap(0.0008,2,20)
+tmp <- quadmap(start=0.95, rho=2.99, niter=500)
+plot(tmp,type="l")
+#9.)b
 
+iter=function(start,rho){
+  a=numeric()
+  a[1]=start
+  i=1
+    repeat{ i=i+1
+            a[i]=rho*a[i-1]*(1-a[i-1])
+            if(abs(a[i] - a[i-1])<0.02) break
+    }
+  i-1
+  
+}
 
-
+iter(0.95,2.99)
