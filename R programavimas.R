@@ -403,3 +403,87 @@ iter=function(start,rho){
 }
 
 iter(0.95,2.99)
+
+##############################
+#10.) ACF for 1 and 2 lags function 
+
+ACF = function ( x ) {
+  
+  n=length(x)
+  r2=numeric()
+  mn=mean(x)
+  vard=0
+  skait1=0
+  skait2=0
+  
+  for ( i in 1:n) {
+    
+    vard = vard + (x[i] - mn)^2
+    
+  }
+  
+  for ( i in 2:n) {
+    
+    skait1= skait1+(x[i]-mn)*(x[i-1]-mn)
+    
+  }
+  
+  for ( i in 3:n) {
+    
+    skait2= skait2+(x[i]-mn)*(x[i-2]-mn)
+    
+  }
+  
+  
+output=list(skait1/vard,skait2/vard)
+
+for ( i in output){
+  print(i)
+}
+
+}
+
+ACF(c(1:5))
+
+acf(c(1:5))
+
+###
+
+#b) generalized ACF ( harder )
+
+GACF = function (x,k) 
+{
+  
+  n=length(x)
+  a=numeric(k)
+  vard=0
+  skait=0
+  
+  for ( i in 1:n) 
+  {
+    
+    vard = vard + (x[i] - mn)^2
+    
+  }
+
+  for(j in 1:k) 
+  {
+    for(i in j:n)
+    {
+  
+     skait=skait + (x[i]-mn)*(x[i-(j-1)]-mn)
+      
+    }
+ 
+  a[j]=skait/vard    
+  skait=0
+
+  }
+  a
+}
+
+GACF(c(1:6),6)        ## check whether answers are good 
+
+acf(c(1:6))           ## integrated function in R 
+
+###################################
