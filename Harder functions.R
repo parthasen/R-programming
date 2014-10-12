@@ -144,3 +144,67 @@ B
 matB(B)
 
 #####################
+## Empirical Copula 
+#a.)
+#input u, v are in [0,1], xVec,yVec - any vectors with same length
+
+empCopula=function(u,v,xVec,yVec) {
+  
+  n=length(xVec)
+  r=rank(xVec)
+  s=rank(yVec)
+  
+  I1=sapply(r,function(r) {(r/(n+1))<=u})
+  I2=sapply(s,function(s) {(s/(n+1))<=v})
+  
+  I=I1*I2
+  C=(1/n)*sum(I)
+  
+  out=list(I1,I2,I,C)
+  names(out) <- c("I1","I2","I1&I2","Empirical Copula") 
+  out
+  
+}
+
+
+empCopula(0.8,0.5,x,y)
+
+x=rnorm(6)
+y=rnorm(6)
+
+u=2
+
+#b.)
+## Generalized empirical copula, where u and v are vectors with the same length and all 
+## the coordinates are in [0,1]
+
+empCopulaG=function(u,v,xVec,yVec) {
+  
+  m=length(u)
+  n=length(xVec)
+  
+  I1=matrix(nrow=m,ncol=n)
+  I2=matrix(nrow=m,ncol=n)
+ 
+
+  r=rank(xVec)
+  s=rank(yVec)
+  
+  for( i in 1:m )
+   {
+  
+  I1[i,]=sapply(r,function(r) {(r/(n+1))<=u[i]})
+  I2[i,]=sapply(s,function(s) {(s/(n+1))<=v[i]})
+  
+   }
+  
+  I=I1*I2
+  rowSums(I)/n
+  
+}
+
+empCopulaG(c(0.8,0.9),c(0.5,0.3),x,y)
+
+u=c(0.8,0.9)
+r=rank(x)
+
