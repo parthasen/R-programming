@@ -107,4 +107,40 @@ I3= function ( x,y ){
 ## vapply(x,FUN,FUN.value) is very similar to sapply(). Vapply() needs an additional argument 
 ##to check whether the output is correct. Think of FUN.value argument as a fail-safe switch.
 
+######################
 
+#2 a.) Submatrix consisting of the collums of the original matrix that did not have NA values 
+
+matA = function (x){
+ 
+ x1=(!is.na(x))*1
+ ex=which(x1==0,arr.ind=TRUE)[,"col"]
+ x=x[,-ex]
+ x
+
+}
+
+A=matrix(seq(1,12,1),ncol=3,nrow=4)
+A[1,2]=NA
+matA(A)
+
+#b.) Now we need to delete collumns AND rows with NA values
+
+matB = function (x){
+  
+  x1=(!is.na(x))*1
+  exC=which(x1==0,arr.ind=TRUE)[,"col"]
+  exR=which(x1==0,arr.ind=TRUE)[,1]
+  
+  x=x[-exR,-exC]
+  x
+}
+
+B=matrix(rnorm(30), ncol=5, nrow=6 )
+B[1,1]=NA
+B[5,4]=NA
+B
+
+matB(B)
+
+#####################
