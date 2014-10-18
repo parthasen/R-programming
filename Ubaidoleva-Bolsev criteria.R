@@ -13,11 +13,26 @@
 
 library(data.table)
 
+##### Take any R function (say lm) and look at its code (you can do that by simply 
+##### executing lm command in R console). That's what a tidy code should look like.
+##### As you will see, all the assignments are done with "<-" and not "=" (you can 
+##### read more about that here 
+##### http://stackoverflow.com/questions/1741820/assignment-operators-in-r-and)
+
 Ztransf=function (x,mean,var) 
+  ### better: Ztransf <- function (x, mean, var)
 {
   
 v    = n-2
-z    = numeric()   
+### what is n here? better code: v <- n - 2
+
+z    = numeric()
+
+#### it is a very bad practice to initiate an empty vector and then add values one
+#### by one to it, because each time the vector will have to reinitialised and all 
+#### the values written to it again, which would take huge amounts of time if you have
+#### to do it sufficiently many times
+
 n    = length(x)
   
 #######################
@@ -26,14 +41,17 @@ if((mean == FALSE)&&(var==FALSE))
 {    
     
   mean = mean(x)   
-  s    = var(x) 
+  s    = var(x)
+  ### take a look at the standard scale function in R
     
     
   for ( i in 1:n )
   {
     z[i]=n*(1 - pt(((x[i]-mean)/sqrt(s))*sqrt(v/(v+1-((x[i]-mean)/sqrt(s))^2)),v))
   }
-
+  ### avoid loops whenever you can - they are slow. the same thing can be done with
+  ### z <- n*(1 - pt(scale(x)*sqrt(v/(v + 1 - scale(x)^2)), v))
+  ### (check to make sure it really gives the same thing)
 }
   
 ######################
